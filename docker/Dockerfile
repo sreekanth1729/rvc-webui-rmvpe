@@ -99,7 +99,7 @@ CMD ["bash"]
 
 # --- RunPod orchestrator ---
 COPY rvc_start.sh /rvc_start.sh
-RUN chmod +x /start.sh && mkdir -p /var/log /workspace/logs
+RUN chmod +x /rvc_start.sh && mkdir -p /var/log /workspace/logs
 
 EXPOSE 7865 6006 8080
 
