@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
     git ffmpeg sox wget curl unzip \
     build-essential cmake ninja-build pkg-config \
     libsndfile1 libsndfile1-dev \
+    libffi-dev libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 RUN ln -sf /usr/bin/python3.10 /usr/bin/python
@@ -38,8 +39,11 @@ RUN pip install \
     praat-parselmouth==0.4.3 \
     pyworld==0.3.4
 
+# Build tooling pins (fairseq is sensitive)
+RUN pip install setuptools==68.2.2 wheel==0.41.3
+
 # fairseq (isolate due to version sensitivity)
-RUN pip install fairseq==0.12.2
+RUN pip install --no-build-isolation fairseq==0.12.2
 
 # Web stack + monitoring
 RUN pip install \
