@@ -35,7 +35,7 @@ RUN pip install \
 
 # Build patched fairseq fork into a wheel
 RUN mkdir -p /wheels \
-    && pip wheel git+https://github.com/One-sixth/fairseq.git -w /wheels
+    && pip wheel --no-build-isolation --no-deps git+https://github.com/One-sixth/fairseq.git -w /wheels
 
 
 # 2) Final stage: runtime image
