@@ -98,9 +98,9 @@ EXPOSE 7865 6006 8080
 CMD ["bash"]
 
 # --- RunPod orchestrator ---
-COPY start.sh /start.sh
+COPY rvc_start.sh /rvc_start.sh
 RUN chmod +x /start.sh && mkdir -p /var/log /workspace/logs
 
 EXPOSE 7865 6006 8080
 
-ENTRYPOINT ["/bin/bash", "/start.sh"]
+ENTRYPOINT ["/bin/bash", "/rvc_start.sh"]
