@@ -25,5 +25,5 @@ FILEBROWSER_BIN="/usr/local/bin/filebrowser"
 tensorboard --logdir /workspace/logs --port 6006 --host 0.0.0.0 \
   > /var/log/tensorboard.log 2>&1 &
 
-cd /app/rvc-webui
+cd /app/rvc
 exec python infer-web.py --port 7865 --host 0.0.0.0
