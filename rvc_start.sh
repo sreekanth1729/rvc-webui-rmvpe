@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+
+# ---- Path validation (fail loud) ----
+if [ ! -d "/app/rvc" ]; then
+  echo "CRITICAL ERROR: /app/rvc directory not found!"
+  ls -la /app || true
+  exit 1
+fi
+
 set -euo pipefail
 
 # ---- 1) Environment guardrails ----

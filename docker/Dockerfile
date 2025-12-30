@@ -103,4 +103,5 @@ RUN chmod +x /rvc_start.sh && mkdir -p /var/log /workspace/logs
 
 EXPOSE 7865 6006 8080
 
-ENTRYPOINT ["/bin/bash", "/rvc_start.sh"]
+ENTRYPOINT ["/bin/bash", "-lc"]
+CMD ["/rvc_start.sh"]
