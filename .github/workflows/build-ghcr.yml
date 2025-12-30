@@ -17,6 +17,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Free disk space on GitHub runner for large CUDA/Torch layers
+      - name: Free disk space
+        run: |
+          df -h
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc || true
+          sudo rm -rf /var/lib/apt/lists/* || true
+          sudo apt-get clean || true
+          docker system prune -af || true
+          df -h
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
