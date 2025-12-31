@@ -1,37 +1,14 @@
 #!/usr/bin/env bash
+set -e
 
-# ---- Path validation (fail loud) ----
-if [ ! -d "/app/rvc" ]; then
-  echo "CRITICAL ERROR: /app/rvc directory not found!"
-  ls -la /app || true
-  exit 1
-fi
+echo "=== LIST / ==="
+ls -la /
 
-set -euo pipefail
+echo "=== LIST /app ==="
+ls -la /app || true
 
-# ---- 1) Environment guardrails ----
-export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-max_split_size_mb:128}"
-export PYTHONUNBUFFERED=1
+echo "=== FIND PY FILES ==="
+find /app -maxdepth 4 -type f -name "*.py" | head -n 100 || true
 
-NPROC="$(nproc || echo 1)"
-if [ "$NPROC" -gt 1 ]; then
-  SAFE_THREADS="$((NPROC - 1))"
-else
-  SAFE_THREADS=1
-fi
-
-export OMP_NUM_THREADS="$SAFE_THREADS"
-export MKL_NUM_THREADS="$SAFE_THREADS"
-export NUMEXPR_NUM_THREADS="$SAFE_THREADS"
-
-mkdir -p /workspace/logs /var/log
-
-FILEBROWSER_BIN="/usr/local/bin/filebrowser"
-"$FILEBROWSER_BIN" -r /workspace -a 0.0.0.0 -p 8080 --noauth \
-  > /var/log/filebrowser.log 2>&1 &
-
-tensorboard --logdir /workspace/logs --port 6006 --host 0.0.0.0 \
-  > /var/log/tensorboard.log 2>&1 &
-
-cd /app/rvc
-exec python infer-web.py --port 7865 --host 0.0.0.0
+echo "=== SLEEPING ==="
+sleep infinity
