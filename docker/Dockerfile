@@ -91,7 +91,7 @@ WORKDIR /app
 RUN mkdir -p /app/logs /app/dataset /app/audio /app/models /app/scripts
 
 # Clone base UI (pin later)
-RUN git clone https://github.com/pinkfloyd1213/RVC-AIO.git /app/rvc
+RUN git clone --depth 1 https://github.com/RVC-Project/Retrieval-based-Voice-Conversion-WebUI.git /app/rvc
 WORKDIR /app/rvc
 
 EXPOSE 7865 6006 8080
